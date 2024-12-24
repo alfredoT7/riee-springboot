@@ -50,5 +50,6 @@ public class PacienteController {
         response.put("pacientes", pacienteService.getAllPacientes());
         return ResponseEntity.ok(response);
     }
+//comentario para que el github no me pida persistentemente las credenciales zzzzzzzzz
 
 }
