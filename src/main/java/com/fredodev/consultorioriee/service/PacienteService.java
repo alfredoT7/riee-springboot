@@ -23,5 +23,7 @@ public class PacienteService {
     public List<Paciente> getAllPacientes() {
         return pacienteRepository.findAll();
     }
-
+    public boolean updatePaciente(Paciente paciente) {
+        return pacienteRepository.update(paciente);
+    }
 }

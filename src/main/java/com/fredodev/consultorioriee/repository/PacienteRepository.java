@@ -68,4 +68,20 @@ public class PacienteRepository {
                         rs.getString("APELLIDO")
                 ));
     }
+    public boolean update(Paciente paciente) {
+        String sql = "SELECT actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        return jdbcTemplate.queryForObject(sql, new Object[]{
+                paciente.getCiPaciente(),
+                paciente.getIdEstadoCivil(),
+                new Date(paciente.getFechaNacimiento().getTime()),
+                paciente.getDireccion(),
+                paciente.getOcupacion(),
+                paciente.getPersonaDeReferencia(),
+                paciente.getNumeroPersonaRef(),
+                paciente.getImagen(),
+                paciente.getNombre(),
+                paciente.getApellido()
+        }, Boolean.class);
+    }
+
 }

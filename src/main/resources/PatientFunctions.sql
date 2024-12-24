@@ -106,3 +106,60 @@ SELECT insertPatient(
        );
 
 -----------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION actualizar_paciente(
+    p_ci_paciente INTEGER,
+    p_id_estado_civil INTEGER,
+    p_fecha_nacimiento DATE,
+    p_direccion TEXT,
+    p_ocupacion TEXT,
+    p_persona_de_referencia TEXT,
+    p_numero_persona_ref INTEGER,
+    p_imagen VARCHAR,
+    p_nombre VARCHAR,
+    p_apellido VARCHAR
+)
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS
+$$
+DECLARE
+v_rows_updated INTEGER;
+BEGIN
+UPDATE PACIENTE
+SET
+    ID_ESTADO_CIVIL = p_id_estado_civil,
+    FECHA_NACIMIENTO = p_fecha_nacimiento,
+    DIRECCION = p_direccion,
+    OCUPACION = p_ocupacion,
+    PERSONA_DE_REFERENCIA = p_persona_de_referencia,
+    NUMERO_PERSONA_REF = p_numero_persona_ref,
+    IMAGEN = p_imagen,
+    NOMBRE = p_nombre,
+    APELLIDO = p_apellido
+WHERE CI_PACIENTE = p_ci_paciente;
+GET DIAGNOSTICS v_rows_updated = ROW_COUNT;
+IF v_rows_updated > 0 THEN
+        RETURN TRUE;
+ELSE
+        RETURN FALSE;
+END IF;
+END;
+$$;
+SELECT actualizar_paciente(
+               12345678,
+               2,
+               '2000-01-01',
+               'Calle Ficticia 123',
+               'Medico',
+               'Juan Perez',
+               987654321,
+               'imagen',
+               'Juan',
+               'Perez'
+       );
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+

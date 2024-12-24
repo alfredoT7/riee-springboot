@@ -17,7 +17,9 @@ public class PacienteController {
     public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }
-
+    /**
+     * http://localhost:8080/api/pacientes/create
+     */
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createPaciente(@RequestBody Paciente paciente) {
         Map<String, String> response = new HashMap<>();
@@ -30,6 +32,10 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    /**
+     * http://localhost:8080/api/pacientes/123456
+     */
+
     @GetMapping("/{ciPaciente}")
     public ResponseEntity<Map<String, Object>> getPacienteByCi(@PathVariable int ciPaciente) {
         try {
@@ -43,6 +49,9 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+    /**
+     * http://localhost:8080/api/pacientes/all
+     */
 
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> getAllPacientes() {
@@ -50,6 +59,25 @@ public class PacienteController {
         response.put("pacientes", pacienteService.getAllPacientes());
         return ResponseEntity.ok(response);
     }
-//comentario para que el github no me pida persistentemente las credenciales zzzzzzzzz
 
+    /**
+     * http://localhost:8080/api/pacientes/update
+     */
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, String>> updatePaciente(@RequestBody Paciente paciente) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            boolean updated = pacienteService.updatePaciente(paciente);
+            if (updated) {
+                response.put("message", "Paciente actualizado exitosamente");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("error", "Paciente no encontrado");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+        } catch (Exception e) {
+            response.put("error", "Error al actualizar el paciente: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }
