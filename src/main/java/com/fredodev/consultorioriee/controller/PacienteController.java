@@ -44,4 +44,11 @@ public class PacienteController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllPacientes() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("pacientes", pacienteService.getAllPacientes());
+        return ResponseEntity.ok(response);
+    }
+
 }
