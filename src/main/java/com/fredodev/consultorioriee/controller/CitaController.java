@@ -49,4 +49,22 @@ public class CitaController {
             return ResponseEntity.ok(response);
         }
     }
+
+    @GetMapping("cita-detalle/{ciPaciente}/{idCita}")
+    public ResponseEntity<Map<String, Object>> citaDetail(@PathVariable int ciPaciente, @PathVariable int idCita){
+        Map<String, Object> response = new HashMap<>();
+        try{
+            Cita cita = citaService.findCitaDetail(ciPaciente,idCita);
+            if(cita != null){
+                response.put("cita", cita);
+                return ResponseEntity.ok(response);
+            }else{
+                response.put("message","Cita no encontrada para ese usuario");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+        }catch (Exception e ){
+            response.put("error","Error al obtener la cita: "+ e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }

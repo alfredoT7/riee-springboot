@@ -22,5 +22,9 @@ public class CitaService {
         return citaRepository.findCitasByPaciente(idPaciente);
     }
 
+    public Cita findCitaDetail(int ciPaciente, int idCita){
+        return citaRepository.findCitaDetail(ciPaciente,idCita);
+    }
+
 
 }

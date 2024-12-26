@@ -47,6 +47,28 @@ public class CitaRepository {
                         rs.getString("DESCRIPCION_CITA")
                 ));
     }
+    public Cita findCitaDetail(int ciPaciente, int idCita){
+        String sql = "Select * from obtener_cita(?, ?);";
+        return jdbcTemplate.execute((ConnectionCallback<? extends Cita>) connection ->{
+           try (PreparedStatement ps = connection.prepareStatement(sql)){
+               ps.setInt(1, ciPaciente);
+               ps.setInt(2,idCita);
+               try(ResultSet rs = ps.executeQuery()){
+                   if(rs.next()){
+                       return new Cita(
+                               ciPaciente,
+                               idCita,
+                               rs.getDate("FECHA_CITA"),
+                               rs.getTime("HORA"),
+                               rs.getInt("DURACION_ESTIMADA"),
+                               rs.getString("DESCRIPCION_CITA")
+                       );
+                   }
+               }
+           }
+           return null;
+        });
+    }
 
 
 
