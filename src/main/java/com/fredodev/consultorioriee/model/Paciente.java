@@ -1,8 +1,8 @@
 package com.fredodev.consultorioriee.model;
 
 import lombok.*;
-
 import java.util.Date;
+
 public class Paciente {
     private int ciPaciente;
     private Integer idEstadoCivil;
