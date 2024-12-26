@@ -108,6 +108,8 @@ create table PACIENTE (
    PERSONA_DE_REFERENCIA VARCHAR(80)          not null,
    NUMERO_PERSONA_REF   INT4                 not null,
    IMAGEN               VARCHAR(1024)        not null,
+   NOMBRE               VARCHAR(30)          not null,
+   APELLIDO             VARCHAR(30)          not null,
    constraint PK_PACIENTE primary key (CI_PACIENTE)
 );
 create unique index PACIENTE_PK on PACIENTE (
