@@ -26,5 +26,8 @@ public class CitaService {
         return citaRepository.findCitaDetail(ciPaciente,idCita);
     }
 
+    public List<Cita> getFutureAppointment(){
+        return citaRepository.getFutureAppointment();
+    }
 
 }

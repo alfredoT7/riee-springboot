@@ -5,6 +5,7 @@ import com.fredodev.consultorioriee.service.CitaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -67,4 +68,19 @@ public class CitaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    @GetMapping()
+    public ResponseEntity<Map<String, Object>> getFutureAppointment(){
+        Map<String, Object> response = new HashMap<>();
+        List<Cita> citas = citaService.getFutureAppointment();
+        if (citas.isEmpty()){
+            response.put("message", "No hay citas futuras");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }else{
+            response.put("citas", citas);
+            return ResponseEntity.ok(response);
+        }
+    }
+
+
 }

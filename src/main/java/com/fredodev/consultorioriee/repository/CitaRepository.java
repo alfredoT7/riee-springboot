@@ -1,10 +1,12 @@
 package com.fredodev.consultorioriee.repository;
 
 import com.fredodev.consultorioriee.model.Cita;
+import com.fredodev.consultorioriee.model.Paciente;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -68,6 +70,20 @@ public class CitaRepository {
            }
            return null;
         });
+    }
+
+        public List<Cita> getFutureAppointment(){
+        String sql = "select * from obtener_citas_futuras();";
+        return jdbcTemplate.query(sql, (rs,rowNum) ->
+                    new Cita(
+                            rs.getInt("CI_PACIENTE"),
+                            rs.getInt("ID_CITA"),
+                            rs.getDate("FECHA_CITA"),
+                            rs.getTime("HORA"),
+                            rs.getInt("DURACION_ESTIMADA"),
+                            rs.getString("DESCRIPCION_CITA")
+                    )
+                );
     }
 
 
