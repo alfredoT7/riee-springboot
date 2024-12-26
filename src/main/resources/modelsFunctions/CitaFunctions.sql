@@ -123,3 +123,33 @@ END;
 $$ LANGUAGE plpgsql;
 
 SELECT eliminar_cita(12345678, 1);
+------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION obtener_citas_futuras()
+    RETURNS TABLE (
+                      CI_PACIENTE INT,
+                      ID_CITA INT,
+                      FECHA_CITA DATE,
+                      HORA TIME,
+                      DURACION_ESTIMADA INT,
+                      DESCRIPCION_CITA VARCHAR
+                  ) AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT
+            C.CI_PACIENTE,
+            C.ID_CITA,
+            C.FECHA_CITA,
+            C.HORA,
+            C.DURACION_ESTIMADA,
+            C.DESCRIPCION_CITA
+        FROM
+            CITA C
+        WHERE
+            C.FECHA_CITA >= CURRENT_DATE;
+END;
+$$ LANGUAGE plpgsql;
+
+select * from obtener_citas_futuras();
+
+select * from cita;
