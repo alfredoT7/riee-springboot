@@ -27,6 +27,7 @@ CREATE OR REPLACE FUNCTION obtener_citas_por_paciente(
     p_ci_paciente INT
 )
     RETURNS TABLE (
+                      CI_PACIENTE INT,
                       ID_CITA INT,
                       FECHA_CITA DATE,
                       HORA TIME,
@@ -36,7 +37,7 @@ CREATE OR REPLACE FUNCTION obtener_citas_por_paciente(
 $$
 BEGIN
     RETURN QUERY
-        SELECT C.ID_CITA, C.FECHA_CITA, C.HORA, C.DURACION_ESTIMADA, C.DESCRIPCION_CITA
+        SELECT c.ci_paciente ,C.ID_CITA, C.FECHA_CITA, C.HORA, C.DURACION_ESTIMADA, C.DESCRIPCION_CITA
         FROM CITA C
         WHERE C.CI_PACIENTE = p_ci_paciente;
 END;

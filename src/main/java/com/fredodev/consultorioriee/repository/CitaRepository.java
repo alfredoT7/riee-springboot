@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 @Repository
 public class CitaRepository {
@@ -33,6 +34,18 @@ public class CitaRepository {
             }
             return false;
         }));
+    }
+    public List<Cita> findCitasByPaciente(int idPaciente){
+        String sql = "SELECT * FROM obtener_citas_por_paciente(?);";
+        return jdbcTemplate.query(sql, new Object[]{idPaciente}, (rs, rowNum) ->
+                new Cita(
+                        rs.getInt("CI_PACIENTE"),
+                        rs.getInt("ID_CITA"),
+                        rs.getDate("FECHA_CITA"),
+                        rs.getTime("HORA"),
+                        rs.getInt("DURACION_ESTIMADA"),
+                        rs.getString("DESCRIPCION_CITA")
+                ));
     }
 
 
