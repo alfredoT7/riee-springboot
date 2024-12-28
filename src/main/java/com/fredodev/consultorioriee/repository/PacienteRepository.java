@@ -18,19 +18,20 @@ public class PacienteRepository {
     }
 
     public void save(Paciente paciente) {
-        String sql = "SELECT insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "SELECT insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         jdbcTemplate.execute((ConnectionCallback<Object>) (connection) -> {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, paciente.getCiPaciente());
+                ps.setLong(1, paciente.getCiPaciente());
                 ps.setInt(2, paciente.getIdEstadoCivil());
                 ps.setDate(3, new Date(paciente.getFechaNacimiento().getTime()));
                 ps.setString(4, paciente.getDireccion());
                 ps.setString(5, paciente.getOcupacion());
                 ps.setString(6, paciente.getPersonaDeReferencia());
-                ps.setInt(7, paciente.getNumeroPersonaRef());
+                ps.setLong(7, paciente.getNumeroPersonaRef());
                 ps.setString(8, paciente.getImagen());
                 ps.setString(9, paciente.getNombre());
                 ps.setString(10, paciente.getApellido());
+                ps.setLong(11,paciente.getNumeroTelefono());
                 ps.execute();
             }
             return null;
@@ -40,32 +41,34 @@ public class PacienteRepository {
         String sql = "SELECT * FROM getPatientByCI(?);";
         return jdbcTemplate.queryForObject(sql, new Object[]{ciPaciente}, (rs, rowNum) ->
                 new Paciente(
-                        rs.getInt("CI_PACIENTE"),
+                        rs.getLong("CI_PACIENTE"),
                         rs.getInt("ID_ESTADO_CIVIL"),
                         rs.getDate("FECHA_NACIMIENTO"),
                         rs.getString("DIRECCION"),
                         rs.getString("OCUPACION"),
                         rs.getString("PERSONA_DE_REFERENCIA"),
-                        rs.getInt("NUMERO_PERSONA_REF"),
+                        rs.getLong("NUMERO_PERSONA_REF"),
                         rs.getString("IMAGEN"),
                         rs.getString("NOMBRE"),
-                        rs.getString("APELLIDO")
+                        rs.getString("APELLIDO"),
+                        rs.getLong("NUMERO_TELEFONO")
                 ));
     }
     public List<Paciente> findAll() {
         String sql = "SELECT * from getAllPatient();";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Paciente(
-                        rs.getInt("CI_PACIENTE"),
+                        rs.getLong("CI_PACIENTE"),
                         rs.getInt("ID_ESTADO_CIVIL"),
                         rs.getDate("FECHA_NACIMIENTO"),
                         rs.getString("DIRECCION"),
                         rs.getString("OCUPACION"),
                         rs.getString("PERSONA_DE_REFERENCIA"),
-                        rs.getInt("NUMERO_PERSONA_REF"),
+                        rs.getLong("NUMERO_PERSONA_REF"),
                         rs.getString("IMAGEN"),
                         rs.getString("NOMBRE"),
-                        rs.getString("APELLIDO")
+                        rs.getString("APELLIDO"),
+                        rs.getLong("NUMERO_TELEFONO")
                 ));
     }
     public boolean update(Paciente paciente) {
@@ -80,7 +83,8 @@ public class PacienteRepository {
                 paciente.getNumeroPersonaRef(),
                 paciente.getImagen(),
                 paciente.getNombre(),
-                paciente.getApellido()
+                paciente.getApellido(),
+                paciente.getNumeroTelefono()
         }, Boolean.class);
     }
 

@@ -4,18 +4,19 @@ import lombok.*;
 import java.util.Date;
 
 public class Paciente {
-    private int ciPaciente;
+    private long ciPaciente;
     private Integer idEstadoCivil;
     private Date fechaNacimiento;
     private String direccion;
     private String ocupacion;
     private String personaDeReferencia;
-    private int numeroPersonaRef;
+    private long numeroPersonaRef;
     private String imagen;
     private String nombre;
     private String apellido;
+    private long numeroTelefono;
 
-    public Paciente(int ciPaciente, Integer idEstadoCivil, Date fechaNacimiento, String direccion, String ocupacion, String personaDeReferencia, int numeroPersonaRef, String imagen, String nombre, String apellido) {
+    public Paciente(long ciPaciente, Integer idEstadoCivil, Date fechaNacimiento, String direccion, String ocupacion, String personaDeReferencia, long numeroPersonaRef, String imagen, String nombre, String apellido, long numeroTelefono) {
         this.ciPaciente = ciPaciente;
         this.idEstadoCivil = idEstadoCivil;
         this.fechaNacimiento = fechaNacimiento;
@@ -26,13 +27,14 @@ public class Paciente {
         this.imagen = imagen;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.numeroTelefono=numeroTelefono;
     }
 
     public Paciente(){
 
     }
 
-    public int getCiPaciente() {
+    public long getCiPaciente() {
         return ciPaciente;
     }
 
@@ -80,7 +82,7 @@ public class Paciente {
         this.personaDeReferencia = personaDeReferencia;
     }
 
-    public int getNumeroPersonaRef() {
+    public long getNumeroPersonaRef() {
         return numeroPersonaRef;
     }
 
@@ -110,6 +112,14 @@ public class Paciente {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public long getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(long numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
     }
 
     @Override

@@ -1,15 +1,16 @@
 CREATE OR REPLACE FUNCTION getAllPatient()
 RETURNS TABLE(
-    ci_paciente INTEGER,
+    ci_paciente BIGINT,
     id_estado_civil INTEGER,
     fecha_nacimiento DATE,
     direccion VARCHAR,
     ocupacion VARCHAR,
     persona_de_referencia VARCHAR,
-    numero_persona_ref INTEGER,
+    numero_persona_ref BIGINT,
     imagen VARCHAR,
     nombre VARCHAR,
-    apellido VARCHAR
+    apellido VARCHAR,
+    numero_telefino BIGINT
 ) AS
 $$
 BEGIN
@@ -25,16 +26,17 @@ SELECT * from getAllPatient();
 -----------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION getPatientByCI(p_ci INTEGER)
 RETURNS TABLE(
-    ci_paciente INTEGER,
+    ci_paciente BIGINT,
     id_estado_civil INTEGER,
     fecha_nacimiento DATE,
     direccion VARCHAR,
     ocupacion VARCHAR,
     persona_de_referencia VARCHAR,
-    numero_persona_ref INTEGER,
+    numero_persona_ref BIGINT,
     imagen VARCHAR,
     nombre VARCHAR,
-    apellido VARCHAR
+    apellido VARCHAR,
+    numero_telefono BIGINT
 ) AS
 $$
 BEGIN
@@ -51,16 +53,17 @@ SELECT * FROM getPatientByCI(12345678);
 
 -----------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insertPatient(
-    p_ci_paciente INTEGER,
+    p_ci_paciente BIGINT,
     p_id_estado_civil INTEGER,
     p_fecha_nacimiento DATE,
     p_direccion VARCHAR,
     p_ocupacion VARCHAR,
     p_persona_de_referencia VARCHAR,
-    p_numero_persona_ref INTEGER,
+    p_numero_persona_ref BIGINT,
     p_imagen VARCHAR,
     p_nombre VARCHAR,
-    p_apellido VARCHAR
+    p_apellido VARCHAR,
+    p_numero_telefono BIGINT
 )
 RETURNS VOID AS
 $$
@@ -75,7 +78,8 @@ INSERT INTO paciente (
     numero_persona_ref,
     imagen,
     nombre,
-    apellido
+    apellido,
+    numero_telefono
 )
 VALUES (
            p_ci_paciente,
@@ -87,13 +91,14 @@ VALUES (
            p_numero_persona_ref,
            p_imagen,
            p_nombre,
-           p_apellido
+           p_apellido,
+           p_numero_telefono
        );
 END;
 $$ LANGUAGE plpgsql;
 
 SELECT insertPatient(
-               12445678,
+               124456789,
                1,
                '1990-01-01',
                'Calle Falsa 123',
@@ -102,21 +107,23 @@ SELECT insertPatient(
                987654321,
                'foto.jpg',
                'Juan',
-               'Perez'
+               'Perez',
+               70774739
        );
-
+select * from paciente;
 -----------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION actualizar_paciente(
-    p_ci_paciente INTEGER,
+    p_ci_paciente BIGINT,
     p_id_estado_civil INTEGER,
     p_fecha_nacimiento DATE,
     p_direccion TEXT,
     p_ocupacion TEXT,
     p_persona_de_referencia TEXT,
-    p_numero_persona_ref INTEGER,
+    p_numero_persona_ref BIGINT,
     p_imagen VARCHAR,
     p_nombre VARCHAR,
-    p_apellido VARCHAR
+    p_apellido VARCHAR,
+    p_numero_telefono BIGINT
 )
 RETURNS BOOLEAN
 LANGUAGE plpgsql
@@ -135,7 +142,8 @@ SET
     NUMERO_PERSONA_REF = p_numero_persona_ref,
     IMAGEN = p_imagen,
     NOMBRE = p_nombre,
-    APELLIDO = p_apellido
+    APELLIDO = p_apellido,
+    NUMERO_TELEFONO = p_numero_telefono
 WHERE CI_PACIENTE = p_ci_paciente;
 GET DIAGNOSTICS v_rows_updated = ROW_COUNT;
 IF v_rows_updated > 0 THEN
@@ -146,7 +154,7 @@ END IF;
 END;
 $$;
 SELECT actualizar_paciente(
-               12345678,
+               124456789,
                2,
                '2000-01-01',
                'Calle Ficticia 123',
@@ -154,8 +162,9 @@ SELECT actualizar_paciente(
                'Juan Perez',
                987654321,
                'imagen',
-               'Juan',
-               'Perez'
+               'RENATO',
+               'HHON',
+                90909090
        );
 -----------------------------------------------------------------------------------------------------------------------
 
