@@ -10,7 +10,7 @@ RETURNS TABLE(
     imagen VARCHAR,
     nombre VARCHAR,
     apellido VARCHAR,
-    numero_telefino BIGINT
+    numero_telefono BIGINT
 ) AS
 $$
 BEGIN
@@ -167,7 +167,7 @@ SELECT actualizar_paciente(
                 90909090
        );
 -----------------------------------------------------------------------------------------------------------------------
-
+select * from  paciente;
 
 
 

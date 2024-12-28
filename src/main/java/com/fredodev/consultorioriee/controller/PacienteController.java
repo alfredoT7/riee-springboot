@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,8 +57,15 @@ public class PacienteController {
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> getAllPacientes() {
         Map<String, Object> response = new HashMap<>();
-        response.put("pacientes", pacienteService.getAllPacientes());
-        return ResponseEntity.ok(response);
+        List<Paciente> pacientes = pacienteService.getAllPacientes();
+        if (!pacientes.isEmpty()){
+            response.put("pacientes", pacienteService.getAllPacientes());
+            return ResponseEntity.ok(response);
+        }else{
+            response.put("error","Pacientes no encontrados");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
     }
 
     /**
