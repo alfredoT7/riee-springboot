@@ -20,10 +20,13 @@ public class PacienteService {
     public Paciente getPacienteByCi(int ciPaciente) {
         return pacienteRepository.findByCiPaciente(ciPaciente);
     }
-    public List<Paciente> getAllPacientes() {
-        return pacienteRepository.findAll();
+    public List<Paciente> getAllPacientes(int pageNumber) {
+        return pacienteRepository.findAll(pageNumber);
     }
     public boolean updatePaciente(Paciente paciente) {
         return pacienteRepository.update(paciente);
+    }
+    public int contarPacientes() {
+        return pacienteRepository.contarPacientes();
     }
 }

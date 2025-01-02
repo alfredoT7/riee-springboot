@@ -54,9 +54,11 @@ public class PacienteRepository {
                         rs.getLong("NUMERO_TELEFONO")
                 ));
     }
-    public List<Paciente> findAll() {
-        String sql = "SELECT * from getAllPatient();";
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
+    public List<Paciente> findAll(int pageNumber) {
+        int pageSize = 15;
+        int offset = (pageNumber - 1) * pageSize;
+        String sql = "SELECT * FROM getAllPatient() LIMIT ? OFFSET ?;";
+        return jdbcTemplate.query(sql, new Object[]{pageSize, offset}, (rs, rowNum) ->
                 new Paciente(
                         rs.getLong("CI_PACIENTE"),
                         rs.getInt("ID_ESTADO_CIVIL"),
@@ -86,6 +88,10 @@ public class PacienteRepository {
                 paciente.getApellido(),
                 paciente.getNumeroTelefono()
         }, Boolean.class);
+    }
+    public int contarPacientes() {
+        String sql = "SELECT contar_pacientes();";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
 }

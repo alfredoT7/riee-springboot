@@ -169,6 +169,20 @@ SELECT actualizar_paciente(
 -----------------------------------------------------------------------------------------------------------------------
 select * from  paciente;
 
+-----------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION contar_pacientes()
+    RETURNS INTEGER AS
+$$
+DECLARE
+    total_pacientes INTEGER;
+BEGIN
+    SELECT COUNT(p.ci_paciente) INTO total_pacientes
+    FROM paciente p;
+    RETURN total_pacientes;
+END;
+$$ LANGUAGE plpgsql;
 
 
+select * from contar_pacientes();
 
+SELECT * FROM getAllPatient() LIMIT 3 OFFSET 2;
