@@ -55,7 +55,7 @@ public class PacienteController {
      */
 
     @GetMapping("/all/{pageNumber}")
-    public ResponseEntity<Map<String, Object>> getAllPacientes(@PathVariable int pageNumber) {
+    public ResponseEntity<Map<String, Object>> getAllPacientesPagination(@PathVariable int pageNumber) {
         Map<String, Object> response = new HashMap<>();
         List<Paciente> pacientes = pacienteService.getAllPacientes(pageNumber);
         int totalPacientes = pacienteService.contarPacientes();
@@ -68,6 +68,23 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+    /**
+     *GET http://localhost:8080/api/pacientes/getAll
+     */
+    @GetMapping("/getAll")
+    public ResponseEntity<Map<String,Object>> getAllPacientes(){
+        Map<String,Object> response = new HashMap<>();
+        List<Paciente> pacientes = pacienteService.getAllPacientes();
+        if(!pacientes.isEmpty()){
+            response.put("pacientes", pacientes);
+            return ResponseEntity.ok(response);
+        }else{
+            response.put("error", "Pacientes no encontrados");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
+
 
     /**
      * http://localhost:8080/api/pacientes/update

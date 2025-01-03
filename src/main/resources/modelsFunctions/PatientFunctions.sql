@@ -186,3 +186,6 @@ $$ LANGUAGE plpgsql;
 select * from contar_pacientes();
 
 SELECT * FROM getAllPatient() LIMIT 3 OFFSET 2;
+
+
+SELECT * from getAllPatient()

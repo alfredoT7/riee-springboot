@@ -73,6 +73,26 @@ public class PacienteRepository {
                         rs.getLong("NUMERO_TELEFONO")
                 ));
     }
+    public List<Paciente> findAll() {
+        String sql = "SELECT * from getAllPatient();";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Paciente(
+                        rs.getLong("CI_PACIENTE"),
+                        rs.getInt("ID_ESTADO_CIVIL"),
+                        rs.getDate("FECHA_NACIMIENTO"),
+                        rs.getString("DIRECCION"),
+                        rs.getString("OCUPACION"),
+                        rs.getString("PERSONA_DE_REFERENCIA"),
+                        rs.getLong("NUMERO_PERSONA_REF"),
+                        rs.getString("IMAGEN"),
+                        rs.getString("NOMBRE"),
+                        rs.getString("APELLIDO"),
+                        rs.getLong("NUMERO_TELEFONO")
+                ));
+    }
+
+
+
     public boolean update(Paciente paciente) {
         String sql = "SELECT actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         return jdbcTemplate.queryForObject(sql, new Object[]{
