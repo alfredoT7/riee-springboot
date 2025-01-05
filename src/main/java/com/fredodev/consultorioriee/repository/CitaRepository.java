@@ -72,18 +72,18 @@ public class CitaRepository {
         });
     }
 
-        public List<Cita> getFutureAppointment(){
-        String sql = "select * from obtener_citas_futuras();";
-        return jdbcTemplate.query(sql, (rs,rowNum) ->
-                    new Cita(
-                            rs.getInt("CI_PACIENTE"),
-                            rs.getInt("ID_CITA"),
-                            rs.getDate("FECHA_CITA"),
-                            rs.getTime("HORA"),
-                            rs.getInt("DURACION_ESTIMADA"),
-                            rs.getString("DESCRIPCION_CITA")
-                    )
-                );
+    public List<Cita> getFutureAppointment(){
+    String sql = "select * from obtener_citas_futuras();";
+    return jdbcTemplate.query(sql, (rs,rowNum) ->
+                new Cita(
+                        rs.getInt("CI_PACIENTE"),
+                        rs.getInt("ID_CITA"),
+                        rs.getDate("FECHA_CITA"),
+                        rs.getTime("HORA"),
+                        rs.getInt("DURACION_ESTIMADA"),
+                        rs.getString("DESCRIPCION_CITA")
+                )
+            );
     }
 
 

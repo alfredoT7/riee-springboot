@@ -51,7 +51,7 @@ public class PacienteController {
         }
     }
     /**
-     * http://localhost:8080/api/pacientes/all
+     * http://localhost:8080/api/pacientes/all/1
      */
 
     @GetMapping("/all/{pageNumber}")
