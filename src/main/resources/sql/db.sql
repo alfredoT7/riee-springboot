@@ -110,6 +110,7 @@ create table PACIENTE (
    IMAGEN               VARCHAR(1024)        not null,
    NOMBRE               VARCHAR(30)          not null,
    APELLIDO             VARCHAR(30)          not null,
+   NUMERO_TELEFONO      BIGINT               null,
    constraint PK_PACIENTE primary key (CI_PACIENTE)
 );
 create unique index PACIENTE_PK on PACIENTE (
