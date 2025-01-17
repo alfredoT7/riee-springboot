@@ -27,6 +27,7 @@ public class SecurityConfig
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/hello").permitAll();
                     auth.requestMatchers("/api/pacientes/**").permitAll();
+                    auth.requestMatchers("/api/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin()

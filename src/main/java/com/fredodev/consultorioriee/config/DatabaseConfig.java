@@ -12,7 +12,7 @@ public class DatabaseConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/riee");
-        dataSource.setUsername("fredoDev");
+        dataSource.setUsername("alfredo");
         dataSource.setPassword("notebok456");
         return dataSource;
     }
